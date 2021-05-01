@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>editions.juvenal.associes</groupId>
+	<artifactId>apps streaming Kafka Streams</artifactId>
+	<version>1.0</version>
+
+	<name>apps streaming Kafka Streams</name>
+	<url>https://github.com/carlosvin/apps streaming Kafka Streams</url>
+	<description>développement d'applications Streaming avec Kafka streams</description>
+
+	<developers>
+		<developer>
+			<email>contact@data-transitionnumerique.com</email>
+			<name>Juvénal CHOKOGOUE</name>
+			<url>https://www.data-transitionnumerique.com/</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<developerConnection>scm:git:xxx@github.com:xxxx/lifecycle-maven-plugin.git</developerConnection>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<kafka.clients.version>2.1.0</kafka.clients.version>
+		<kafka.streams.version>2.1.0</kafka.streams.version>
+		<log4J.version>2.13.3</log4J.version>
+		<maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+		<jdk.version>1.8</jdk.version>
+		<scala.langage.version>2.11.8</scala.langage.version>
+		<scala.compiler.plugin.version>2.15.2</scala.compiler.plugin.version>
+		<jackson.databind.version>2.6.7.3</jackson.databind.version>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>${kafka.clients.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams</artifactId>
+			<version>${kafka.streams.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4J.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.langage.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.databind.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-tools-annotations</artifactId>
+			<version>3.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.shared</groupId>
+			<artifactId>file-management</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin}</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<version>${scala.compiler.plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<scalaVersion>${scala.langage.version}</scalaVersion>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-invoker-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<postBuildHookScript>verify</postBuildHookScript>
+					<showVersion>true</showVersion>
+					<streamLogs>true</streamLogs>
+					<noLog>false</noLog>
+					<showErrors>true</showErrors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>install</goal>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.5</version>
+				<configuration>
+					<goalPrefix>apps streaming Kafka Streams</goalPrefix>
+					<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+				</configuration>
+				<executions>
+					<execution>
+						<id>mojo-descriptor</id>
+						<goals>
+							<goal>descriptor</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>help-goal</id>
+						<goals>
+							<goal>helpmojo</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<packaging>maven-plugin</packaging>
+</project>
