@@ -1,2 +1,2 @@
 ::Console Producer
-%KAFKA_HOME%\bin\kafka-console-producer.bat --bootstrap-server localhost:9092 --topic nom_topic
+%KAFKA_HOME%\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic streams_app
