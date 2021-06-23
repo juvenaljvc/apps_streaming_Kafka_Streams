@@ -1,4 +1,3 @@
-
 import org.apache.kafka.clients.consumer._
 import org.apache.kafka.common.protocol
 import org.apache.kafka.common.serialization._
@@ -13,7 +12,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 
 
-object ClientsStreaming {
+object ProducerSemanticsGraranties {
 
 
   def main(args: Array[String]): Unit = {
@@ -25,17 +24,20 @@ object ClientsStreaming {
     val record_publish2 =  getJSON("localhost:9092", "detailsOrderline")
 
     producer_Kafka.initTransactions()
+
     producer_Kafka.beginTransaction()
     try {
       for( i <- 1 to 10 ) {
         producer_Kafka.send(record_publish1)
         producer_Kafka.send(record_publish2)
       }
-    producer_Kafka.commitTransaction()
+      producer_Kafka.commitTransaction()
     } catch {
       case ex : Exception =>
         producer_Kafka.abortTransaction()
         println("transaction avortée")
+    } finally {
+      producer_Kafka.close()
     }
 
 
@@ -85,9 +87,9 @@ object ClientsStreaming {
     props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true")
     props.put(ProducerConfig.ACKS_CONFIG, "all")
     props.put("min.insync.replica", "2")
-    props.put(ProducerConfig.RETRIES_CONFIG, 2)   // sémantique au moins une fois.
+    props.put(ProducerConfig.RETRIES_CONFIG, "2")   // sémantique au moins une fois.
 
-    props.put(ProducerConfig.RETRIES_CONFIG, 0)   // sémantique au plus une fois.
+    // props.put(ProducerConfig.RETRIES_CONFIG, 0)   // sémantique au plus une fois.
 
     // activation des transactions sous reserve que "min.insync.replica" >= 2 et replication factor >=3
     props.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "transaction_1")
