@@ -72,7 +72,7 @@ object ConsumerSemanticsGaranties {
     props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest")
     props.put(ConsumerConfig.GROUP_ID_CONFIG,KafkaConsumerGroupId)
     props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false")
-    props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, "range")     // RoundRobinAssignor ou StickyAssignor
+    props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, "org.apache.kafka.clients.consumer.RoundRobinAssignor")     // RoundRobinAssignor ou StickyAssignor
     props.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, "read_committed")
     return props
 
