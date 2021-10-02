@@ -31,6 +31,9 @@
 		<scala.langage.version>2.11.8</scala.langage.version>
 		<scala.compiler.plugin.version>2.15.2</scala.compiler.plugin.version>
 		<jackson.databind.version>2.6.7.3</jackson.databind.version>
+		<jackson.schemaPOJO.version>2.5.4</jackson.schemaPOJO.version>
+		<apache.comon.version>2.4</apache.comon.version>
+		<jackson.scala.module.version>2.10.0</jackson.scala.module.version>
 	</properties>
 
 	<dependencies>
@@ -69,11 +72,18 @@
 			<version>${scala.langage.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.databind.version}</version>
+			<version>${jackson.schemaPOJO.version}</version>
+		</dependency>  -->
+
+		<!-- apache common library -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
 		</dependency>
 
 		<dependency>
@@ -98,6 +108,14 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-scala -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-scala_2.11</artifactId>
+			<version>${jackson.scala.module.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -130,26 +148,6 @@
 			</plugin>
 
 			<plugin>
-				<artifactId>maven-invoker-plugin</artifactId>
-				<version>3.0.1</version>
-				<configuration>
-					<postBuildHookScript>verify</postBuildHookScript>
-					<showVersion>true</showVersion>
-					<streamLogs>true</streamLogs>
-					<noLog>false</noLog>
-					<showErrors>true</showErrors>
-				</configuration>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>install</goal>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
 				<version>3.5</version>
@@ -172,6 +170,28 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- Json Schema to POJO Maven plugin-->
+			<plugin>
+				<groupId>org.jsonschema2pojo</groupId>
+				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+				<version>0.5.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${project.basedir}/src/main/resources/schemas/</sourceDirectory>
+							<outputDirectory>${project.basedir}/src/main/scala/</outputDirectory>
+							<includeAdditionalProperties>false</includeAdditionalProperties>
+							<includeHashcodeAndEquals>false</includeHashcodeAndEquals>
+							<generateBuilders>true</generateBuilders>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

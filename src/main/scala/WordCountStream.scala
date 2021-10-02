@@ -29,6 +29,9 @@ object WordCountStream {
     val kkStream : KafkaStreams = new KafkaStreams(topologie, getParams("localhost:9092"))
     kkStream.start()
 
+    // visualiser la topologie
+    println(topologie.describe())
+
     sys.ShutdownHookThread{
       kkStream.close(Duration.ofSeconds(10))
     }

@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "javaType": "schemas.OrdersLine.json",
+  "properties" : {
+    "orderlineid" : {"type": "string"},
+    "productid" : {"type": "string"},
+    "shipdate" : {"type": "object", "javaType": "java.lang.Long"},
+    "billdate" : {"type": "object", "javaType": "java.lang.Long"},
+    "unitprice" : {"type": "number"},
+    "totalprice" : {"type": "number"},
+    "numunits" : {"type": "integer"},
+    "orderid": {
+      "type": "object",
+      "$ref": "Orders.json"
+    }
+  }
+}

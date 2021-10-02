@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "javaType": "schemas.Orders.json",
+  "properties" : {
+    "orderid" : {"type": "string"},
+    "customerid" : {"type": "integer"},
+    "campaignid" : {"type": "integer"},
+    "orderdate" : {"type": "object", "javaType": "java.lang.Long"},
+    "city" : {"type": "string"},
+    "state" : {"type": "string"},
+    "zipCode" : {"type": "string"},
+    "paymenttype" : {"type": "string"},
+    "totalprice" : {"type": "number"},
+    "numorderlines" : {"type": "integer"},
+    "numunits" : {"type": "integer"}
+  }
+}
