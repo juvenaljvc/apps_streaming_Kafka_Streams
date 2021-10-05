@@ -2,6 +2,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import schemas.{Facture, OrderLine}
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper, SerializationFeature}
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import java.io.{ByteArrayOutputStream, ByteArrayInputStream, ObjectInputStream, ObjectOutputStream}
 
 object TestSerDes extends App {
 
@@ -26,7 +27,17 @@ object TestSerDes extends App {
   val d = objetMapper.readValue(s, classOf[Facture])   // désérialisation
   val db = objetMapper.readValue(sb, classOf[Facture])
 
-  println(db)
+  val bts = new ByteArrayOutputStream()
+  val ost = new ObjectOutputStream(bts)
+
+   ost.writeObject(facture1)
+
+  val btos = new ByteArrayInputStream(bts.toByteArray)
+  val oist = new ObjectInputStream(btos)
+  val facture2 = oist.readObject().asInstanceOf[Facture]
+
+  println("tableau d'array binaire " + bts.toByteArray)
+  println(facture2)
 
 
 }
