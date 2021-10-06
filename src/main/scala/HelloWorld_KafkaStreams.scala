@@ -1,4 +1,5 @@
 import org.apache.kafka.streams.scala._
+
 import java.util.Properties
 import org.apache.kafka.streams.KafkaStreams
 import org.apache.kafka.streams.{StreamsConfig, Topology}
