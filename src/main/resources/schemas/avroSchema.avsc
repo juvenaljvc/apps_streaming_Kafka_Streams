@@ -1,0 +1,10 @@
+{
+  "namespace": "Commandes",
+  "type": "record",
+  "name": "CommandesDetails",
+  "fields" : [
+    {"name": "col1", "type" : ["null", "string"]},
+    {"name": "col2", "type" : ["null", "string"]},
+    {"name": "col3", "type" : ["null", "string"]}
+  ]
+}
