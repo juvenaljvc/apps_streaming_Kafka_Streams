@@ -5,7 +5,7 @@ import schemas.Facture
 
 class GenericDeserializer[T] extends Deserializer[T]{
 
-  private val genT  = classOf[T]
+  private var genT : Class[T] = _
 
   override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = {}
 
