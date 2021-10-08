@@ -1,13 +1,15 @@
 package serdes
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
-import com.fasterxml.jackson.module.scala.{DefaultScalaModule}
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 import java.util
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.apache.kafka.common.serialization.Deserializer
+import schemas.Facture
+
 import scala.reflect._
 
-class JSONDeserializer [T : ClassTag] extends Deserializer[T]{
+class JSONDeserializer extends Deserializer[Facture]{
 
   val objetMapper : ObjectMapper = new ObjectMapper()
   objetMapper.registerModule(DefaultScalaModule)
@@ -17,12 +19,12 @@ class JSONDeserializer [T : ClassTag] extends Deserializer[T]{
 
   override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = {}
 
-  override def deserialize(topic: String, data: Array[Byte]): T = {
+  override def deserialize(topic: String, data: Array[Byte]): Facture = {
 
     try {
 
       // processus de désérialisation ici
-      val d = objetMapper.readValue(data, classTag[T].runtimeClass.asInstanceOf[Class[T]])
+      val d = objetMapper.readValue(data, classOf[Facture])
       d
 
     } catch {

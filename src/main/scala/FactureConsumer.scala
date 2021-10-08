@@ -10,13 +10,13 @@ object FactureConsumer extends  App {
 
   val props = new Properties()
   props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer" )
-  props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, classOf[JSONSerializer[Facture]])
+  props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, classOf[JSONDeserializer])
   props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
   props.put(ConsumerConfig.GROUP_ID_CONFIG, "groupe_orders")
   props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
 
   val factureConsumer = new KafkaConsumer[String, Facture](props)
-  factureConsumer.subscribe(Collections.singletonList(""))
+  factureConsumer.subscribe(Collections.singletonList("factureJson"))
 
   while(true) {
     val messages : ConsumerRecords[String, Facture] = factureConsumer.poll(Duration.ofSeconds(3))

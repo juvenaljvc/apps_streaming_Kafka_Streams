@@ -19,7 +19,7 @@ object FactureProducer extends App {
   val factureProducer = new KafkaProducer[String, Facture](props)
 
   facture1.foreach{
-    e => factureProducer.send(new ProducerRecord[String, Facture]("", e.factureid, e))
+    e => factureProducer.send(new ProducerRecord[String, Facture]("factureJson", e.factureid, e))
       Thread.sleep(3000)
   }
 
