@@ -39,6 +39,8 @@ object WriteProcessors extends App {
   // écriture  dans un topic Kafka existant - opération non-finale
   val t = newKeys.through("topic-test")(Produced.`with`(Serdes.String(), Serdes.Double()))
 
+  // transformation du KStream en KTable
+  val kTable = str.table[String, Facture]("factureJson")(Consumed.`with`(Serdes.String(), jsonSerdes))
 
   val topologie : Topology = str.build()
   val kkStream : KafkaStreams = new KafkaStreams(topologie, props)
