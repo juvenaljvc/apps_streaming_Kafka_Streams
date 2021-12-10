@@ -103,12 +103,6 @@
 			<artifactId>file-management</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-scala -->
 		<dependency>
@@ -121,6 +115,38 @@
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro</artifactId>
 			<version>1.10.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams-test-utils -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams-test-utils</artifactId>
+			<version>2.1.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.7.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
+		<dependency>
+			<groupId>org.scalatest</groupId>
+			<artifactId>scalatest_2.11</artifactId>
+			<version>3.1.1</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
